@@ -26,7 +26,7 @@ def create_body(name, rad, color, faraway):
         'mass': 100,
         'pos': [x, y],
         'radius': rad,
-        'angvel': .25*(abs(5 + (4 - count) )),
+        'angvel': .25*(abs(2 + (4 - count) )),
         'color': color,
         'borderRad' : faraway,
         'isChecked' : False,
@@ -42,8 +42,8 @@ mercury = create_body("mercury", 30, pygame.Color(255, 50, 0), 120)
 earth = create_body("earth", 30, pygame.Color(51,105,255), 220)
 mars = create_body('mars', 30, pygame.Color(155,150,0), 350)
 jupiter = create_body("jupiter", 50, pygame.Color(251,50,55), 450 )
-moon = create_body("earthMoon", 30, pygame.Color(79,79,79), 250+50)
-
+moon = create_body("earthMoon", 18, pygame.Color(79,79,79), 100)
+moon['angvel'] += 3
 
 start_time = time.time()
 
@@ -108,9 +108,8 @@ while True:
 
     pygame.draw.circle(window, (255, 153, 0), (center[0], center[1]), 34)
     for bods in bodies:
-
-        
-        pygame.draw.circle(window, (27, 27, 27), (center[0], center[1]),  bods['borderRad'], 5)
+        if bods != moon:
+            pygame.draw.circle(window, (27, 27, 27), (center[0], center[1]),  bods['borderRad'], 5)
         
         pygame.draw.circle(window, bods['color'], (int(bods['pos'][0]), int(bods['pos'][1])), bods['radius'])
         
