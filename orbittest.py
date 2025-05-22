@@ -42,7 +42,7 @@ mercury = create_body("mercury", 30, pygame.Color(255, 50, 0), 120)
 earth = create_body("earth", 30, pygame.Color(51,105,255), 220)
 mars = create_body('mars', 30, pygame.Color(155,150,0), 350)
 jupiter = create_body("jupiter", 50, pygame.Color(251,50,55), 450 )
-moon = create_body("earthMoon", 30, pygame.Color(79,79,79), 250)
+moon = create_body("earthMoon", 30, pygame.Color(79,79,79), 250+50)
 
 
 start_time = time.time()
@@ -80,6 +80,25 @@ while True:
         if bods == moon:
             moon['pos'][0] = earth['pos'][0]
             moon['pos'][1] = earth['pos'][1]
+            
+
+
+            distx = earth['pos'][0] - moon['pos'][0] +10
+            disty = earth['pos'][1] - moon['pos'][1] +10
+            totalDist = math.sqrt(distx**2 + disty**2)
+
+            nx = distx / totalDist 
+            ny = disty / totalDist
+
+            velx = -ny
+            vely = nx
+            
+
+            totalTime = time.time() - start_time
+            angle = bods['angvel'] * totalTime + bods['init_start']
+
+            moon['pos'][0] = earth['pos'][0] + moon['borderRad'] * math.cos(angle)
+            bods['pos'][1] = earth['pos'][1] + moon['borderRad'] * math.sin(angle)
 
 
     window.fill((0, 0, 0))
