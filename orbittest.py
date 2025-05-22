@@ -9,10 +9,10 @@ pygame.init()
 clockMaster = pygame.time.Clock()
 WIDTH, HEIGHT = 1920, 1080
 window = pygame.display.set_mode((WIDTH, HEIGHT))
-border_radius = 350
+border_radius = 150
 center = [WIDTH // 2, HEIGHT // 2]
 pygame.display.set_caption("Key")
-bg_radius = 500
+bg_radius = 300
 
 bodies = []
 count = 0
@@ -38,10 +38,12 @@ def create_body(name, rad, color, faraway):
     return newBody
 
 
-mercury = create_body("mercury", 30, pygame.Color(255, 200, 0), 150)
-earth = create_body("earth", 50, pygame.Color(51,102,255), 250)
-mars = create_body('mars', 53, pygame.Color(155,255,0), 350)
-jupiter = create_body("jupiter", 100, pygame.Color(251,102,55), 500 )
+mercury = create_body("mercury", 30, pygame.Color(255, 50, 0), 120)
+earth = create_body("earth", 30, pygame.Color(51,105,255), 220)
+mars = create_body('mars', 30, pygame.Color(155,150,0), 350)
+jupiter = create_body("jupiter", 50, pygame.Color(251,50,55), 450 )
+moon = create_body("earthMoon", 30, pygame.Color(79,79,79), 250)
+
 
 start_time = time.time()
 
@@ -57,11 +59,6 @@ while True:
     
     #tang. vector logic
     for bods in bodies:
-        randomness = random.randint(0,150)
-        
-            
-        
-
         distx = center[0] - bods['pos'][0] 
         disty = center[1] - bods['pos'][1] 
         totalDist = math.sqrt(distx**2 + disty**2)
@@ -79,14 +76,23 @@ while True:
         bods['pos'][0] = center[0] + bods['borderRad'] * math.cos(angle)
         bods['pos'][1] = center[1] + bods['borderRad'] * math.sin(angle)
 
-        if randomness == 0:
-            bods['borderRad'] += random.randint(-1, 1)
-            bods['borderRad'] += random.randint(-1, 1)
+    for bods in bodies:
+        if bods == moon:
+            moon['pos'][0] = earth['pos'][0]
+            moon['pos'][1] = earth['pos'][1]
+
 
     window.fill((0, 0, 0))
-    pygame.draw.circle(window, (255, 153, 0), (center[0], center[1]), 75)
+
+    
+    
+
+    pygame.draw.circle(window, (255, 153, 0), (center[0], center[1]), 34)
     for bods in bodies:
 
+        
+        pygame.draw.circle(window, (27, 27, 27), (center[0], center[1]),  bods['borderRad'], 5)
+        
         pygame.draw.circle(window, bods['color'], (int(bods['pos'][0]), int(bods['pos'][1])), bods['radius'])
         
     pygame.display.flip()
