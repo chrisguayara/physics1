@@ -56,7 +56,7 @@ def create_ball():
     return new_ball
 create_ball()
 ball_bouncing = False
-balls[0]['radius'] = 50
+balls[0]['radius'] = 10
 
 
 #Times for creating new song points, in milliseconds
@@ -102,7 +102,9 @@ while True:
                 ball['velocity'] = [reflection[0], reflection[1]]
                 ball['pos'][0] = center[0] + (border_radius - ball['radius']) * normal[0]
                 ball['pos'][1] = center[1] + (border_radius - ball['radius']) * normal[1]
-
+                channel = mixer.find_channel()
+                
+                
                 tones[random.randint(0,2)].play()
 
                 if not ball['spawned'] :
